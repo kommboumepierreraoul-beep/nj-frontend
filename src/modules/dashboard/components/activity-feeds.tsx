@@ -17,7 +17,7 @@ import type { DashboardFeedDocument, DashboardFeedMovement, DashboardFeeds } fro
  */
 export function ActivityFeeds({ feeds }: { feeds: DashboardFeeds }) {
   return (
-    <div className="grid items-start gap-4" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(420px, 1fr))" }}>
+    <div className="grid grid-cols-1 items-start gap-4 md:grid-cols-2">
       <FeedCard
         title={translate("dashboard.feed.movements.title")}
         hint={translate("dashboard.feed.movements.hint")}

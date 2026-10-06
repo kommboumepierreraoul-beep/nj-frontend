@@ -155,7 +155,7 @@ function DashboardPageContent() {
             <Skeleton className="h-[320px] w-full" />
           </div>
           <Skeleton className="h-48 w-full" />
-          <div className="grid gap-4" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(380px, 1fr))" }}>
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             {Array.from({ length: 4 }).map((_, index) => (
               <Skeleton key={index} className="h-64 w-full" />
             ))}

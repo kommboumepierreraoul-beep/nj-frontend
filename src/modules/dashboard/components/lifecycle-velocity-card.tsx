@@ -39,7 +39,7 @@ export function LifecycleVelocityCard({ data }: { data: DashboardLifecycleVeloci
           <p className="text-[13px] font-medium text-muted-foreground">{translate("dashboard.velocity.empty")}</p>
         </div>
       ) : (
-        <div className="grid gap-x-6 gap-y-4 p-5" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))" }}>
+        <div className="grid grid-cols-1 gap-x-6 gap-y-4 p-5 sm:grid-cols-2">
           {data.etapes.map((stage) => {
             const label = `${SALES_ORDER_STATUS_LABELS[stage.from_status as SalesOrderStatus] ?? stage.from_status} → ${
               SALES_ORDER_STATUS_LABELS[stage.to_status as SalesOrderStatus] ?? stage.to_status

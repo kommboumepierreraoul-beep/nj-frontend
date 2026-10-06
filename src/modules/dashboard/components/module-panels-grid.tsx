@@ -22,7 +22,7 @@ function metricValue(metric: DashboardPanelMetric): { value: string; unit?: stri
  */
 export function ModulePanelsGrid({ panels }: { panels: DashboardModulePanel[] }) {
   return (
-    <div className="grid items-start gap-4" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(380px, 1fr))" }}>
+    <div className="grid grid-cols-1 items-start gap-4 md:grid-cols-2">
       {panels.map((panel) => {
         const config = PANEL_CONFIG[panel.code];
         if (!config) return null;

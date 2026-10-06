@@ -1,6 +1,7 @@
 "use client";
 
 import { useForm } from "react-hook-form";
+import { Loader2 } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { forgotPasswordSchema, type ForgotPasswordSchema } from "../schemas/forgot-password.schema";
 import { useForgotPassword } from "../hooks/use-forgot-password";
@@ -32,8 +33,20 @@ export function ForgotPasswordForm() {
         <Input id="email" type="email" autoComplete="email" {...register("email")} />
         {errors.email && <p className="text-sm text-destructive">{errors.email.message}</p>}
       </div>
+      {forgotPassword.isError && (
+        <p role="alert" className="text-sm text-destructive">
+          Échec de l&apos;envoi. Réessayez.
+        </p>
+      )}
       <Button type="submit" className="w-full" disabled={forgotPassword.isPending}>
-        {forgotPassword.isPending ? "Envoi..." : "Envoyer le lien"}
+        {forgotPassword.isPending ? (
+          <>
+            <Loader2 className="h-4 w-4 animate-spin" />
+            Envoi...
+          </>
+        ) : (
+          "Envoyer le lien"
+        )}
       </Button>
     </form>
   );
