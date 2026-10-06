@@ -9,6 +9,7 @@ import { useLocale, useT } from "@/i18n";
 import { useLogout } from "@/modules/auth/hooks/use-logout";
 import { useHasUnseenWhatsNew } from "@/components/onboarding/whats-new-modal";
 import { NotificationBell } from "@/modules/notifications/components/notification-bell";
+import { Avatar } from "@/components/data-display/avatar";
 import { formatDateTime } from "@/lib/format";
 import { routes } from "@/config/routes";
 import {
@@ -24,14 +25,6 @@ const ROLE_LABEL: Record<string, string> = {
   SUPER_ADMIN: "Super administrateur",
   ADMIN: "Administrateur",
 };
-
-function initials(name: string): string {
-  const parts = name.trim().split(/\s+/).filter(Boolean);
-  const first = parts[0];
-  if (!first) return "NJ";
-  const last = parts.length > 1 ? parts[parts.length - 1] : undefined;
-  return (first.charAt(0) + (last ? last.charAt(0) : "")).toUpperCase();
-}
 
 function shortName(name: string): string {
   const parts = name.trim().split(/\s+/).filter(Boolean);
@@ -160,9 +153,7 @@ export function AppHeader({ onOpenMobileMenu, onOpenSearch, onOpenGuide, onOpenW
             title={t("header.profile")}
             className="flex h-10 min-w-0 flex-1 items-center gap-2 rounded-full py-0 pl-0.5 pr-1.5 hover:bg-background sm:gap-2.5 sm:pr-2.5"
           >
-            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-accent text-[12.5px] font-bold text-accent-foreground">
-              {initials(fullName)}
-            </span>
+            <Avatar name={fullName} src={user?.avatar_url} size={36} />
             <span className="hidden min-w-0 max-w-[130px] flex-col gap-[1px] overflow-hidden text-left sm:flex">
               <span className="truncate text-[12.5px] font-semibold leading-[1.2] text-foreground">
                 {shortName(fullName)}
@@ -187,9 +178,7 @@ export function AppHeader({ onOpenMobileMenu, onOpenSearch, onOpenGuide, onOpenW
           </DialogDescription>
 
           <div className="flex flex-wrap items-center gap-[15px] border-b border-border px-5 py-[22px] sm:px-[26px]">
-            <span className="flex h-[54px] w-[54px] shrink-0 items-center justify-center rounded-full bg-accent text-[18px] font-extrabold text-accent-foreground">
-              {initials(fullName)}
-            </span>
+            <Avatar name={fullName} src={user?.avatar_url} size={54} />
             <div className="flex min-w-0 flex-1 flex-col gap-[3px]">
               <div className="truncate text-[18px] font-bold tracking-[-0.015em] text-foreground">{fullName}</div>
               <div className="truncate text-[12.5px] text-text-tertiary">{user?.email}</div>
