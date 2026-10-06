@@ -1,6 +1,7 @@
 "use client";
 
 import { Suspense } from "react";
+import Link from "next/link";
 import { ChevronDown, Globe, Moon } from "lucide-react";
 import { LoginForm } from "./login-form";
 import { LoginBrandPanel } from "./login-brand-panel";
@@ -76,7 +77,7 @@ export function LoginScreen() {
         <div className="flex flex-none flex-wrap items-center justify-between gap-4 text-[10px] font-semibold tracking-[0.12em] text-text-quaternary">
           <div>© {new Date().getFullYear()} NJ GLOBAL TRADE CO. LTD</div>
           <div className="flex gap-5">
-            <span>{t("login.footerPrivacy")}</span>
+            <Link href="/politique-confidentialite" className="hover:text-foreground">{t("login.footerPrivacy")}</Link>
             <span>{t("login.footerSupport")}</span>
           </div>
         </div>
