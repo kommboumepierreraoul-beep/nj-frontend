@@ -1,26 +1,374 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
+/**
+ * Design tokens = Doc/design_system_maquette_complete.md § 2.2 (couleurs) et
+ * § 2.1 (typographie). Toute couleur utilisée dans un composant doit passer
+ * par un de ces tokens (`bg-accent`, `text-success`…) — jamais une valeur
+ * hexadécimale en dur dans une classe Tailwind.
+ *
+ * Thème sombre (bascule § 2.4) : `@theme inline` fait pointer chaque token
+ * `--color-*` vers une variable neutre (`--nj-*`) redéfinie plus bas, une
+ * fois en clair sur `:root`, une fois en sombre sur `:root.dark`. La bascule
+ * ajoute/retire la classe `dark` sur `<html>` (voir `src/stores/ui.store.ts`
+ * et le script anti-flash de `app/layout.tsx`). Les valeurs sombres sont une
+ * dérivation cohérente de la palette claire (point de cadrage § 2.4, tranché
+ * ici — Doc/theme_sombre_addendum.md).
+ */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-inter), Helvetica, sans-serif;
+
+  --color-background: var(--nj-background);
+  --color-surface: var(--nj-surface);
+  --color-surface-subtle: var(--nj-surface-subtle);
+  --color-border: var(--nj-border);
+  --color-border-2: var(--nj-border-2);
+  --color-input: var(--nj-input);
+  --color-foreground: var(--nj-foreground);
+  --color-muted-foreground: var(--nj-muted-foreground);
+  --color-text-tertiary: var(--nj-text-tertiary);
+  --color-text-quaternary: var(--nj-text-quaternary);
+  --color-link: var(--nj-link);
+  --color-hover: var(--nj-hover);
+
+  --color-sidebar: var(--nj-sidebar);
+  --color-sidebar-foreground: var(--nj-sidebar-foreground);
+  --color-sidebar-border: var(--nj-sidebar-border);
+  --color-sidebar-hover: var(--nj-sidebar-hover);
+  --color-sidebar-icon: var(--nj-sidebar-icon);
+  --color-sidebar-label: var(--nj-sidebar-label);
+  --color-sidebar-flyout-bg: var(--nj-sidebar-flyout-bg);
+  --color-sidebar-flyout-border: var(--nj-sidebar-flyout-border);
+  --color-sidebar-flyout-child: var(--nj-sidebar-flyout-child);
+  --color-sidebar-inline-border: var(--nj-sidebar-inline-border);
+  --color-sidebar-inline-child: var(--nj-sidebar-inline-child);
+
+  --color-accent: var(--nj-accent);
+  --color-accent-hover: var(--nj-accent-hover);
+  --color-accent-foreground: var(--nj-accent-foreground);
+  --color-accent-bg: var(--nj-accent-bg);
+
+  --color-success: var(--nj-success);
+  --color-success-bg: var(--nj-success-bg);
+  --color-warning: var(--nj-warning);
+  --color-warning-bg: var(--nj-warning-bg);
+  --color-destructive: var(--nj-destructive);
+  --color-destructive-bg: var(--nj-destructive-bg);
+  --color-neutral: var(--nj-neutral);
+  --color-neutral-bg: var(--nj-neutral-bg);
+
+  --color-module-clients: var(--nj-module-clients);
+  --color-module-clients-bg: var(--nj-module-clients-bg);
+  --color-module-products: var(--nj-module-products);
+  --color-module-products-bg: var(--nj-module-products-bg);
+  --color-module-suppliers: var(--nj-module-suppliers);
+  --color-module-suppliers-bg: var(--nj-module-suppliers-bg);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Classe `dark` posée sur <html> — variante utilitaire `dark:` alignée dessus. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* --- Palette claire (défaut) : valeurs § 2.2 transcrites tel quel --- */
+:root {
+  --nj-background: #f4f4f4;
+  --nj-surface: #ffffff;
+  /* Fond des en-têtes de colonne et survol de ligne des tableaux (NJ Global Trade Clients.dc.html ligne 468). */
+  --nj-surface-subtle: #fafafa;
+  --nj-border: #e6e6e6;
+  --nj-border-2: #e0e0e0;
+  --nj-input: #e6e6e6;
+  --nj-foreground: #111111;
+  --nj-muted-foreground: #666666;
+  --nj-text-tertiary: #999999;
+  --nj-text-quaternary: #b0b0b0;
+  --nj-link: #b8850f;
+  --nj-hover: #f4f4f4;
+
+  /* La barre latérale est déjà sombre dans les deux thèmes (valeurs exactes de
+     NJ Global Trade Dashboard.dc.html). */
+  --nj-sidebar: #111111;
+  --nj-sidebar-foreground: #ffffff;
+  --nj-sidebar-border: #262626;
+  --nj-sidebar-hover: #1e1e1e;
+  --nj-sidebar-icon: #666666;
+  --nj-sidebar-label: #e8e8e8;
+  --nj-sidebar-flyout-bg: #1a1a1a;
+  --nj-sidebar-flyout-border: #2e2e2e;
+  --nj-sidebar-flyout-child: #c4c4c4;
+  --nj-sidebar-inline-border: #2a2a2a;
+  --nj-sidebar-inline-child: #999999;
+
+  --nj-accent: #e5a817;
+  --nj-accent-hover: #c9910f;
+  --nj-accent-foreground: #111111;
+  --nj-accent-bg: #fef3d9;
+
+  --nj-success: #2e6b4f;
+  --nj-success-bg: #e8f3ed;
+  --nj-warning: #9a5b0b;
+  --nj-warning-bg: #fef3d9;
+  --nj-destructive: #c92a2a;
+  --nj-destructive-bg: #fdecec;
+  --nj-neutral: #666666;
+  --nj-neutral-bg: #f4f4f4;
+
+  --nj-module-clients: #6b4fbf;
+  --nj-module-clients-bg: #f0eafb;
+  --nj-module-products: #1f5fa9;
+  --nj-module-products-bg: #e7f0fb;
+  --nj-module-suppliers: #16707e;
+  --nj-module-suppliers-bg: #e4f4f6;
+}
+
+/* --- Palette sombre (classe `dark` sur <html>) : dérivation cohérente de la
+   palette claire — fonds désaturés très sombres, textes clairs, accents
+   légèrement éclaircis pour tenir le contraste. Doc/theme_sombre_addendum.md. --- */
+:root.dark {
+  --nj-background: #0e0f11;
+  --nj-surface: #17181b;
+  --nj-surface-subtle: #1e2024;
+  --nj-border: #2b2d33;
+  --nj-border-2: #34373d;
+  --nj-input: #2b2d33;
+  --nj-foreground: #ededed;
+  --nj-muted-foreground: #9b9da3;
+  --nj-text-tertiary: #7c7e84;
+  --nj-text-quaternary: #5f6167;
+  --nj-link: #e2ab48;
+  --nj-hover: #1e2024;
+
+  --nj-sidebar: #0b0c0d;
+  --nj-sidebar-foreground: #ffffff;
+  --nj-sidebar-border: #23252a;
+  --nj-sidebar-hover: #1b1d20;
+  --nj-sidebar-icon: #7c7e84;
+  --nj-sidebar-label: #e8e8e8;
+  --nj-sidebar-flyout-bg: #17181b;
+  --nj-sidebar-flyout-border: #2e3138;
+  --nj-sidebar-flyout-child: #c4c4c4;
+  --nj-sidebar-inline-border: #2a2c31;
+  --nj-sidebar-inline-child: #9b9da3;
+
+  --nj-accent: #e9b23a;
+  --nj-accent-hover: #f0be55;
+  --nj-accent-foreground: #111111;
+  --nj-accent-bg: #352c12;
+
+  --nj-success: #5cc08f;
+  --nj-success-bg: #16281f;
+  --nj-warning: #d98f47;
+  --nj-warning-bg: #2c2211;
+  --nj-destructive: #e56b6b;
+  --nj-destructive-bg: #2e1717;
+  --nj-neutral: #9b9da3;
+  --nj-neutral-bg: #1e2024;
+
+  --nj-module-clients: #a892e0;
+  --nj-module-clients-bg: #241b3a;
+  --nj-module-products: #6aa8e0;
+  --nj-module-products-bg: #13243a;
+  --nj-module-suppliers: #4fb5c4;
+  --nj-module-suppliers-bg: #112e33;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+}
+
+:root.dark body {
+  color-scheme: dark;
+}
+
+/* Icônes d'interface : lucide-react (composants SVG React) — jamais d'émoji ni de police d'icônes externe, voir src/config/nav-icons.tsx. */
+
+/*
+ * Animations reprises telles quelles du template projet (NJ Global Trade
+ * Login.dc.html pour njDrift1/2/3, njSweep, njRise, njPulse ; NJ Global Trade
+ * Dashboard.dc.html pour njFade/njPop). Utilisées par la page de connexion et
+ * par les panneaux modaux (profil, guide, recherche) du shell applicatif.
+ */
+@keyframes njDrift1 {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(9%, -7%, 0) scale(1.14);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+@keyframes njDrift2 {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1.06);
+  }
+  50% {
+    transform: translate3d(-11%, 8%, 0) scale(0.94);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) scale(1.06);
+  }
+}
+@keyframes njDrift3 {
+  0% {
+    transform: translate3d(0, 0, 0) scale(0.96);
+  }
+  50% {
+    transform: translate3d(7%, 10%, 0) scale(1.18);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) scale(0.96);
+  }
+}
+@keyframes njSweep {
+  0% {
+    transform: translateY(-40%) rotate(8deg);
+    opacity: 0;
+  }
+  18% {
+    opacity: 0.55;
+  }
+  82% {
+    opacity: 0.55;
+  }
+  100% {
+    transform: translateY(140%) rotate(8deg);
+    opacity: 0;
+  }
+}
+@keyframes njRise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes njPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(229, 168, 23, 0.55);
+  }
+  70% {
+    box-shadow: 0 0 0 12px rgba(229, 168, 23, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(229, 168, 23, 0);
+  }
+}
+@keyframes njFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes njPop {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/*
+ * Barre de progression indéterminée des formulaires en modal (soumission en
+ * cours) — voir src/components/forms/form-progress-bar.tsx. Un segment glisse
+ * en boucle sur toute la largeur de l'en-tête du modal.
+ */
+@keyframes njBarSlide {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(340%);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .nj-form-bar-segment {
+    animation: njPulse 1.4s ease-in-out infinite !important;
+    transform: none !important;
+    width: 100% !important;
+    left: 0 !important;
+  }
+}
+
+/*
+ * Visite guidée interactive (src/components/onboarding/guided-tour.tsx) :
+ * voile en 4 bandes autour du point d'intérêt, anneau doré pulsant, et un
+ * curseur animé qui « tape » sur l'élément à manipuler.
+ */
+.nj-tour-veil {
+  position: fixed;
+  background: rgba(9, 10, 12, 0.55);
+  transition: all 0.2s ease;
+  pointer-events: auto;
+}
+:root.dark .nj-tour-veil,
+:root:not([data-theme="light"]) .nj-tour-veil {
+  background: rgba(0, 0, 0, 0.66);
+}
+.nj-tour-ring {
+  position: fixed;
+  border: 2px solid var(--color-accent);
+  border-radius: 12px;
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-accent) 22%, transparent);
+  pointer-events: none;
+  transition: all 0.2s ease;
+  animation: njTourRing 1.8s ease-in-out infinite;
+}
+@keyframes njTourRing {
+  0%,
+  100% {
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-accent) 22%, transparent);
+  }
+  50% {
+    box-shadow: 0 0 0 8px color-mix(in srgb, var(--color-accent) 10%, transparent);
+  }
+}
+.nj-tour-pointer {
+  position: fixed;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: njTourTap 1.15s ease-in-out infinite;
+}
+.nj-tour-pointer-ring {
+  position: absolute;
+  inset: -6px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--color-accent) 30%, transparent);
+  animation: njTourPing 1.15s ease-out infinite;
+}
+@keyframes njTourTap {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  45% {
+    transform: translate(-3px, -5px) scale(0.9);
+  }
+}
+@keyframes njTourPing {
+  0% {
+    transform: scale(0.7);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1.8);
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .nj-tour-ring,
+  .nj-tour-pointer,
+  .nj-tour-pointer-ring {
+    animation: none !important;
+  }
 }
