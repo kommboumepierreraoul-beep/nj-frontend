@@ -41,28 +41,28 @@ export function ListPageActions({
     <>
       {secondary}
       {onImport ? (
-        <Button variant="outline" type="button" onClick={onImport} disabled={busy} title={translate("action.import")} aria-label={translate("action.import")}>
+        <Button variant="outline" size="icon" type="button" onClick={onImport} disabled={busy} title={translate("action.import")} aria-label={translate("action.import")} className="sm:h-[42px] sm:w-auto sm:px-4">
           <Upload className="h-4 w-4" />
           <span className="hidden sm:inline">{translate("action.import")}</span>
         </Button>
       ) : null}
       {onExport ? (
-        <Button variant="outline" type="button" onClick={onExport} disabled={busy} title={translate("action.export")} aria-label={translate("action.export")}>
+        <Button variant="outline" size="icon" type="button" onClick={onExport} disabled={busy} title={translate("action.export")} aria-label={translate("action.export")} className="sm:h-[42px] sm:w-auto sm:px-4">
           <Download className="h-4 w-4" />
           <span className="hidden sm:inline">{translate("action.export")}</span>
         </Button>
       ) : null}
       {newLabel && newHref ? (
-        <Button asChild>
+        <Button asChild title={newLabel} aria-label={newLabel} className="sm:px-4">
           <Link href={newHref} data-tour="list-new">
             <Plus className="h-4 w-4" />
-            {newLabel}
+            <span className="hidden sm:inline">{newLabel}</span>
           </Link>
         </Button>
       ) : newLabel && onNew ? (
-        <Button type="button" onClick={onNew} data-tour="list-new">
+        <Button type="button" onClick={onNew} data-tour="list-new" title={newLabel} aria-label={newLabel} className="sm:px-4">
           <Plus className="h-4 w-4" />
-          {newLabel}
+          <span className="hidden sm:inline">{newLabel}</span>
         </Button>
       ) : null}
     </>

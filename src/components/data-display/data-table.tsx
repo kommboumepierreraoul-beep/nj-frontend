@@ -81,8 +81,9 @@ export function DataTable<T>({
   const isEmpty = !isLoading && !isError && rows.length === 0;
 
   return (
-    <div className={cn("overflow-x-auto rounded-[14px] border border-border bg-surface", className)}>
-      <div style={{ minWidth: columns.length > 4 ? `${columns.length * 160}px` : undefined }}>
+    <div className={cn("overflow-hidden rounded-[14px] border border-border bg-surface", className)}>
+      <div className="overflow-x-auto">
+        <div style={{ minWidth: columns.length > 4 ? `${columns.length * 160}px` : undefined }}>
         <div
           className="grid items-center gap-3 border-b border-border bg-surface-subtle px-[18px]"
           style={{ gridTemplateColumns, minHeight: "40px" }}
@@ -138,6 +139,7 @@ export function DataTable<T>({
             </Fragment>
           ))
         )}
+        </div>
       </div>
       {meta && onPageChange && !isLoading && !isError ? <Pagination meta={meta} onPageChange={onPageChange} /> : null}
     </div>

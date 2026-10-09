@@ -73,7 +73,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           onOpenGuide={() => setGuideOpen(true)}
           onOpenWhatsNew={() => setWhatsNewSignal((n) => n + 1)}
         />
-        <main className="flex-1 p-4 sm:p-6">{children}</main>
+        <main className="min-w-0 flex-1 overflow-x-hidden p-4 sm:p-6">{children}</main>
       </div>
 
       <GlobalSearchDialog open={searchOpen} onOpenChange={setSearchOpen} />

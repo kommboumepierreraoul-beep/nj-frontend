@@ -39,11 +39,11 @@ const DialogContent = React.forwardRef<
 >(({ className, children, ...props }, ref) => (
   <DialogPortal>
     <DialogOverlay />
-    <div className="fixed inset-0 z-[65] flex items-start justify-center overflow-y-auto px-6 py-10">
+    <div className="fixed inset-0 z-[65] flex items-start justify-center overflow-y-auto px-4 py-4 sm:px-6 sm:py-10">
       <DialogPrimitive.Content
         ref={ref}
         className={cn(
-          "w-full max-w-[660px] overflow-hidden rounded-[18px] bg-surface shadow-[0_32px_80px_rgba(17,17,17,0.28)]",
+          "w-full max-w-[660px] max-h-[calc(100dvh-2rem)] overflow-y-auto overflow-x-hidden rounded-[18px] bg-surface shadow-[0_32px_80px_rgba(17,17,17,0.28)] sm:max-h-[calc(100dvh-5rem)]",
           className,
         )}
         style={{ animation: "njPop 220ms cubic-bezier(.2,.7,.2,1)" }}

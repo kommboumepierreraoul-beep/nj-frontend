@@ -74,7 +74,7 @@ export function AppHeader({ onOpenMobileMenu, onOpenSearch, onOpenGuide, onOpenW
 
   return (
     <>
-      <header className="sticky top-0 z-20 flex h-[68px] shrink-0 items-center gap-3 border-b border-border bg-surface pl-4 pr-3 md:gap-6 md:pl-9 md:pr-6">
+      <header className="sticky top-0 z-20 flex h-[68px] min-w-0 shrink-0 items-center gap-3 overflow-hidden border-b border-border bg-surface pl-4 pr-3 md:gap-6 md:pl-9 md:pr-6">
         <button
           type="button"
           onClick={onOpenMobileMenu}
@@ -136,7 +136,7 @@ export function AppHeader({ onOpenMobileMenu, onOpenSearch, onOpenGuide, onOpenW
               type="button"
               onClick={() => setLocale(locale === "fr" ? "en" : "fr")}
               title={t("header.language")}
-              className="hidden h-8 items-center rounded-full bg-[#262626] px-3 text-[11.5px] font-semibold tracking-[0.04em] text-white hover:bg-[#333333] md:flex dark:bg-white/10 dark:hover:bg-white/[0.16]"
+              className="hidden h-8 items-center rounded-full bg-[#262626] px-3 text-[11.5px] font-semibold tracking-[0.04em] text-white hover:bg-[#333333] sm:flex dark:bg-white/10 dark:hover:bg-white/[0.16]"
             >
               {locale.toUpperCase()}
             </button>
@@ -146,6 +146,16 @@ export function AppHeader({ onOpenMobileMenu, onOpenSearch, onOpenGuide, onOpenW
               ci-dessus est masquée sous `sm`, donc la cloche y est reprise en
               autonome pour rester accessible sur mobile. */}
           <NotificationBell tone="plain" className="sm:hidden" />
+
+          <button
+            type="button"
+            onClick={() => setLocale(locale === "fr" ? "en" : "fr")}
+            title={t("header.language")}
+            aria-label={t("header.language")}
+            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[10px] text-[11px] font-bold tracking-[0.04em] text-foreground hover:bg-background sm:hidden"
+          >
+            {locale.toUpperCase()}
+          </button>
 
           <button
             type="button"

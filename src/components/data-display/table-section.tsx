@@ -28,7 +28,7 @@ export function TableSection({
           <span className="text-[10px] font-semibold tracking-[0.14em] text-muted-foreground uppercase">{title}</span>
           {hint ? <span className="text-xs text-text-tertiary">{hint}</span> : null}
         </div>
-        {action ? <div className="flex shrink-0 items-center gap-2">{action}</div> : null}
+        {action ? <div className="flex w-full min-w-0 flex-wrap items-center gap-2 sm:w-auto sm:shrink-0">{action}</div> : null}
       </div>
       {children}
     </div>
