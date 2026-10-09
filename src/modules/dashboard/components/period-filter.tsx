@@ -33,7 +33,7 @@ export function PeriodFilter({
   onChange: (next: { period?: DashboardPeriod; date?: string }) => void;
 }) {
   return (
-    <div className="flex flex-wrap items-center gap-3.5 rounded-[14px] border border-border bg-surface px-[18px] py-[13px]">
+    <div className="flex items-center gap-3.5 overflow-x-auto rounded-[14px] border border-border bg-surface p-3 md:flex-wrap md:overflow-visible md:p-4 [&>*]:shrink-0">
       <CalendarDays className="h-[19px] w-[19px] shrink-0 text-text-quaternary" />
 
       <div className="flex shrink-0 items-center gap-[3px] rounded-[10px] bg-background p-[3px]">
@@ -60,9 +60,9 @@ export function PeriodFilter({
         className="h-10 shrink-0 cursor-pointer rounded-[10px] border-[1.5px] border-border bg-surface px-3 text-[12.5px] font-medium text-foreground outline-none focus:border-accent"
       />
 
-      {caption ? <span className="min-w-0 text-[12.5px] font-medium text-muted-foreground text-pretty">{caption}</span> : null}
+      {caption ? <span className="min-w-0 whitespace-nowrap text-[12.5px] font-medium text-muted-foreground">{caption}</span> : null}
 
-      <div className="flex-1" />
+      <div className="hidden flex-1 md:block" />
 
       <button
         type="button"

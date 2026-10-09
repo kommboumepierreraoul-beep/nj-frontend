@@ -37,7 +37,7 @@ export function AuditLogFilters({ filters, onChange }: { filters: AuditLogListFi
     <div className="flex flex-col gap-3.5 rounded-[14px] border border-border bg-surface p-[18px]">
       <span className="text-[10px] font-semibold tracking-[0.14em] text-muted-foreground uppercase">{translate("t.filtres")}</span>
 
-      <div className="flex flex-wrap items-end gap-3">
+      <div className="flex flex-nowrap items-end gap-3 overflow-x-auto md:flex-wrap md:overflow-visible [&>*]:shrink-0">
         <div className="space-y-1.5">
           <Label>{translate("t.module")}</Label>
           <Select
@@ -47,7 +47,7 @@ export function AuditLogFilters({ filters, onChange }: { filters: AuditLogListFi
               onChange({ entity_type: undefined, action: undefined });
             }}
           >
-            <SelectTrigger className="w-full sm:w-44">
+            <SelectTrigger className="w-44">
               <SelectValue placeholder={translate("ph.tousLesModules")} />
             </SelectTrigger>
             <SelectContent>
@@ -67,7 +67,7 @@ export function AuditLogFilters({ filters, onChange }: { filters: AuditLogListFi
             value={filters.entity_type ?? ALL}
             onValueChange={(value) => onChange({ entity_type: value === ALL ? undefined : (value as AuditEntityType), action: undefined })}
           >
-            <SelectTrigger className="w-full sm:w-52">
+            <SelectTrigger className="w-52">
               <SelectValue placeholder={translate("ph.tousLesTypes")} />
             </SelectTrigger>
             <SelectContent>
@@ -84,7 +84,7 @@ export function AuditLogFilters({ filters, onChange }: { filters: AuditLogListFi
         <div className="space-y-1.5">
           <Label>{translate("t.action")}</Label>
           <Select value={filters.action ?? ALL} onValueChange={(value) => onChange({ action: value === ALL ? undefined : value })} disabled={!filters.entity_type}>
-            <SelectTrigger className="w-full sm:w-52">
+            <SelectTrigger className="w-52">
               <SelectValue placeholder={filters.entity_type ? "Toutes les actions" : "Choisir un type d'abord"} />
             </SelectTrigger>
             <SelectContent>
@@ -98,7 +98,7 @@ export function AuditLogFilters({ filters, onChange }: { filters: AuditLogListFi
           </Select>
         </div>
 
-        <div className="w-full space-y-1.5 sm:w-32">
+        <div className="w-[140px] shrink-0 space-y-1.5 sm:w-32">
           <Label htmlFor="entity_id">{translate("t.idDEntite")}</Label>
           <Input
             id="entity_id"
@@ -108,21 +108,21 @@ export function AuditLogFilters({ filters, onChange }: { filters: AuditLogListFi
           />
         </div>
 
-        <div className="w-full space-y-1.5 sm:w-60">
+        <div className="w-[240px] shrink-0 space-y-1.5 sm:w-60">
           <Label>{translate("t.auteur")}</Label>
           <ActorPickerField value={filters.actor_user_id} onChange={(id) => onChange({ actor_user_id: id })} />
         </div>
 
         <div className="space-y-1.5">
           <Label htmlFor="from">Du</Label>
-          <Input id="from" type="date" value={filters.from ?? ""} onChange={(event) => onChange({ from: event.target.value || undefined })} className="w-full sm:w-40" />
+          <Input id="from" type="date" value={filters.from ?? ""} onChange={(event) => onChange({ from: event.target.value || undefined })} className="w-40" />
         </div>
         <div className="space-y-1.5">
           <Label htmlFor="to">Au</Label>
-          <Input id="to" type="date" value={filters.to ?? ""} onChange={(event) => onChange({ to: event.target.value || undefined })} className="w-full sm:w-40" />
+          <Input id="to" type="date" value={filters.to ?? ""} onChange={(event) => onChange({ to: event.target.value || undefined })} className="w-40" />
         </div>
 
-        <div className="flex-1" />
+        <div className="hidden flex-1 md:block" />
 
         <button
           type="button"

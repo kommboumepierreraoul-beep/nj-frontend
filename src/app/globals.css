@@ -177,6 +177,20 @@ body {
   overflow-x: hidden;
 }
 
+/* Le panneau de notifications reste centré sur les petits écrans, même si
+   Radix le positionne par défaut par rapport à la cloche située à droite. */
+@media (max-width: 639px) {
+  [data-mobile-center="notification-popover"] {
+    position: fixed !important;
+    top: 76px !important;
+    left: 50% !important;
+    width: calc(100vw - 2rem) !important;
+    max-width: 400px !important;
+    max-height: calc(100dvh - 92px);
+    transform: translateX(-50%) !important;
+  }
+}
+
 :root.dark body {
   color-scheme: dark;
 }

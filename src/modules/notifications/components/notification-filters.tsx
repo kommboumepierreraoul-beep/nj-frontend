@@ -25,11 +25,11 @@ export function NotificationFilters({ filters, onChange }: { filters: Notificati
     <div className="flex flex-col gap-3.5 rounded-[14px] border border-border bg-surface p-[18px]">
       <p className="text-[10px] font-semibold tracking-[0.14em] text-muted-foreground uppercase">{translate("t.filtres")}</p>
 
-      <div className="flex flex-wrap items-end gap-3">
+      <div className="flex flex-nowrap items-end gap-3 overflow-x-auto md:flex-wrap md:overflow-visible [&>*]:shrink-0">
         <div className="space-y-1.5">
           <Label>{translate("t.categorie")}</Label>
           <Select value={filters.category ?? "ALL"} onValueChange={(value) => onChange({ category: value === "ALL" ? undefined : (value as NotificationCategory) })}>
-            <SelectTrigger className="w-full sm:w-[200px]">
+            <SelectTrigger className="w-[200px]">
               <SelectValue placeholder={translate("ph.toutesLesCategories")} />
             </SelectTrigger>
             <SelectContent>
@@ -46,7 +46,7 @@ export function NotificationFilters({ filters, onChange }: { filters: Notificati
         <div className="space-y-1.5">
           <Label>{translate("t.priorite")}</Label>
           <Select value={filters.priority ?? "ALL"} onValueChange={(value) => onChange({ priority: value === "ALL" ? undefined : (value as NotificationPriority) })}>
-            <SelectTrigger className="w-full sm:w-[180px]">
+            <SelectTrigger className="w-[180px]">
               <SelectValue placeholder={translate("ph.toutesLesPriorites")} />
             </SelectTrigger>
             <SelectContent>
@@ -63,7 +63,7 @@ export function NotificationFilters({ filters, onChange }: { filters: Notificati
         <div className="space-y-1.5">
           <Label>Statut de lecture</Label>
           <Select value={filters.read || "ALL"} onValueChange={(value) => onChange({ read: value === "ALL" ? undefined : (value as "true" | "false") })}>
-            <SelectTrigger className="w-full sm:w-[160px]">
+            <SelectTrigger className="w-[160px]">
               <SelectValue placeholder={translate("ph.toutes")} />
             </SelectTrigger>
             <SelectContent>
@@ -74,7 +74,7 @@ export function NotificationFilters({ filters, onChange }: { filters: Notificati
           </Select>
         </div>
 
-        <div className="flex-1" />
+        <div className="hidden flex-1 md:block" />
 
         <button
           type="button"

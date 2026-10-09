@@ -108,8 +108,8 @@ function FlowAnalyticsThresholdsPageContent() {
       </InfoBanner>
 
       {highlightFlowType ? (
-        <div className="flex items-center justify-between gap-3 rounded-[10px] border border-border bg-surface-subtle px-4 py-2.5 text-[13px] text-muted-foreground">
-          <span>
+        <div className="flex flex-wrap items-center justify-between gap-3 rounded-[10px] border border-border bg-surface-subtle px-4 py-2.5 text-[13px] text-muted-foreground">
+          <span className="min-w-0 text-pretty">
             Affichage filtré sur le flux <strong className="text-foreground">{FLOW_TYPE_LABELS[highlightFlowType]}</strong>, depuis l&apos;onglet Vue d&apos;ensemble.
           </span>
           <Button variant="ghost" size="sm" onClick={() => router.push(routes.settings.flowAnalyticsThresholds)}>
@@ -126,7 +126,7 @@ function FlowAnalyticsThresholdsPageContent() {
           const rows = thresholds.filter((threshold) => threshold.flow_type === flowType);
           return (
             <section key={flowType} className="space-y-3">
-              <div className="flex items-center justify-between gap-3">
+              <div className="flex flex-wrap items-center justify-between gap-3">
                 <div className="flex items-center gap-2">
                   <Badge tone={FLOW_TYPE_TONES[flowType]}>{FLOW_TYPE_LABELS[flowType]}</Badge>
                   <h2 className="text-sm font-semibold text-foreground">Seuils {FLOW_TYPE_LABELS[flowType].toLowerCase()}</h2>

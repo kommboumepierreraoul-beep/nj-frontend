@@ -65,7 +65,7 @@ export default function NotificationPreferencesPage() {
   }
 
   return (
-    <div className="max-w-3xl space-y-6">
+    <div className="w-full max-w-3xl space-y-6">
       <PageHeader
         breadcrumbs={[{ label: "Tableau de bord", href: routes.dashboard.home }, { label: "Mon espace" }, { label: translate("guide.p.preferencesDeNotification") }]}
         title={translate("page.notifPrefs.title")}
@@ -110,7 +110,7 @@ export default function NotificationPreferencesPage() {
             ) : undefined
           }
         >
-          <div className="grid grid-cols-[minmax(220px,1fr)_180px] gap-3.5 border-b border-border bg-surface-subtle px-[18px] py-2.5">
+          <div className="hidden grid-cols-1 gap-3.5 border-b border-border bg-surface-subtle px-[18px] py-2.5 sm:grid sm:grid-cols-[minmax(220px,1fr)_180px]">
             <span className="text-[9px] font-bold tracking-[0.12em] text-text-quaternary uppercase">{translate("t.categorie")}</span>
             <span className="text-[9px] font-bold tracking-[0.12em] text-text-quaternary uppercase">{translate("t.email")}</span>
           </div>
@@ -121,7 +121,7 @@ export default function NotificationPreferencesPage() {
               const enabled = emailEnabled[category];
               const changed = enabled !== serverValues[category];
               return (
-                <div key={category} className={cn("grid grid-cols-[minmax(220px,1fr)_180px] items-center gap-3.5 px-[18px] py-3.5", changed && "bg-accent-bg/40")}>
+                <div key={category} className={cn("flex flex-col gap-3.5 px-[18px] py-3.5 sm:grid sm:grid-cols-[minmax(220px,1fr)_180px] sm:items-center", changed && "bg-accent-bg/40")}>
                   <div className="flex min-w-0 items-start gap-3">
                     <span className={cn("flex h-[34px] w-[34px] shrink-0 items-center justify-center rounded-[9px]", CATEGORY_ICON_BOX_CLASSES[category])}>
                       <Icon className="h-[18px] w-[18px]" />
@@ -138,7 +138,7 @@ export default function NotificationPreferencesPage() {
                     onClick={() => setOverrides((prev) => ({ ...prev, [category]: !enabled }))}
                     title={enabled ? translate("t.nePlusRecevoirCetteCategorieParEmail") : translate("t.recevoirAussiCetteCategorieParEmail")}
                     className={cn(
-                      "flex h-11 w-full max-w-[170px] cursor-pointer items-center gap-2.5 rounded-[10px] border-[1.5px] px-3.5",
+                      "flex h-11 w-full cursor-pointer items-center gap-2.5 rounded-[10px] border-[1.5px] px-3.5 sm:max-w-[170px]",
                       enabled ? "border-accent/40 bg-accent-bg/40" : "border-border bg-surface",
                     )}
                   >

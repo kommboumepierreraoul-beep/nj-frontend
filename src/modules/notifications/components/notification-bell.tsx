@@ -79,6 +79,7 @@ export function NotificationBell({ tone = "onDark", className }: { tone?: "onDar
         <PopoverPrimitive.Content
           align="end"
           sideOffset={10}
+          data-mobile-center="notification-popover"
           className="z-[75] flex w-[min(400px,92vw)] flex-col overflow-hidden rounded-lg border border-border bg-surface text-foreground shadow-[0_18px_48px_rgba(0,0,0,0.18)]"
         >
           <div className="flex items-center justify-between border-b border-border px-4 py-3">
